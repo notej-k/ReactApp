@@ -29,6 +29,7 @@ const OrderDetail: React.FC = () => {
             orderItems={order.items}
             onRemoveItem={handleRemoveItem}
           />
+          <ProductSelector products={products} onAddItem={handleAddItem} />
           <p className="mt-4 font-semibold">Total: ${order.total}</p>
           <button
             disabled
