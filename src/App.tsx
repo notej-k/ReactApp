@@ -7,6 +7,8 @@ import { initialOrderState, orderReducer } from "./components/orders/reducer";
 import orders from "./data/orders";
 import { initializeOrders } from "./components/orders/actions";
 import { storeOrdersInLocalStorage } from "./helpers/LocalStorage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   const [, dispatch] = useReducer(orderReducer, initialOrderState);
@@ -23,6 +25,7 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Layout>
+        <ToastContainer />
         <AppRoutes />
       </Layout>
     </BrowserRouter>

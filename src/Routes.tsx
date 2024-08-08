@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import OrderList from "./components/orders/List";
 import OrderDetail from "./components/orders/Detail";
 
