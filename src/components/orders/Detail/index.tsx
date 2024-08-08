@@ -1,37 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useReducer } from "react";
 import { useParams } from "react-router-dom";
-import { Order } from "../types";
-import { fetchOrderById } from "../../../api";
-import LoadingIndicator from "../../common/LoadingIndicator";
 import OrderInfo from "./OrderInfo";
 import OrderItemsTable from "./OrderItemsTable";
+import { orderReducer } from "../reducer";
+import { removeItem } from "../actions";
+import { getOrdersFromLocalStorage } from "../../../helpers/LocalStorage";
 
 const OrderDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [order, setOrder] = useState<Order | null>(null);
-  const [isOrderLoading, setIsOrderLoading] = useState(false);
+  const initialState = { orders: getOrdersFromLocalStorage() };
+  const [state, dispatch] = useReducer(orderReducer, initialState);
+  const order = state.orders.find((stateOrder) => stateOrder.id === id);
 
-  useEffect(() => {
-    const getOrderById = async () => {
-      setIsOrderLoading(true);
-      const data = id ? await fetchOrderById(id) : null;
-      setOrder(data);
-      setIsOrderLoading(false);
-    };
-
-    getOrderById();
-  }, [id]);
-
-  if (isOrderLoading) {
-    return <LoadingIndicator />;
-  }
+  const handleRemoveItem = (itemId: number | undefined) => {
+    if (!order) return;
+    dispatch(removeItem(order.id, itemId));
+  };
 
   return (
     <div className="container flex flex-col gap-4 mx-auto p-4 bg-white rounded-lg shadow-md max-w-xl">
       {order && (
         <>
           <OrderInfo order={order} />
-          <OrderItemsTable orderItems={order.items} onRemoveItem={() => {}} />
+          <OrderItemsTable
+            orderItems={order.items}
+            onRemoveItem={handleRemoveItem}
+          />
           <p className="mt-4 font-semibold">Total: ${order.total}</p>
           <button
             disabled
