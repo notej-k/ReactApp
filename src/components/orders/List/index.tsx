@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Order } from "../types";
-import products from "../../../data/products";
 import { fetchAllOrders } from "../../../api";
 import LoadingIndicator from "../../common/LoadingIndicator";
+import OrderTable from "./OrderTable";
 
 const OrderList: React.FC = () => {
   const [orders, setOrders] = React.useState<Order[]>([]);
@@ -27,7 +26,7 @@ const OrderList: React.FC = () => {
       ) : (
         <>
           <h1 className="text-2xl font-bold mb-4 text-center">Orders</h1>
-          {/* orders come here */}
+          <OrderTable orders={orders} />
         </>
       )}
     </div>
