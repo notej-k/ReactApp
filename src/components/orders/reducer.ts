@@ -1,5 +1,4 @@
-import { Order } from "./types";
-import { REMOVE_ITEM, INITIALIZE_ORDERS, OrderActionTypes } from "./actions";
+import { storeOrdersInLocalStorage } from "../../helpers/LocalStorage";
 
 interface OrderState {
     orders: Order[];
@@ -21,13 +20,14 @@ export const orderReducer = (
             };
 
         case REMOVE_ITEM:
-            const { orderId: removeOrderId, itemId } = action.payload;
+            const { orderId: removeOrderId, productId } = action.payload;
             const removeOrderIndex = state.orders.findIndex((order) => order.id === removeOrderId);
             if (removeOrderIndex === -1) return state;
 
+
             const orderToRemoveFrom = state.orders[removeOrderIndex];
             const updatedOrderItems = orderToRemoveFrom.items.filter(
-                (item) => item.id !== itemId
+                (item) => item["product-id"] !== productId
             );
 
             const newTotal = updatedOrderItems
@@ -42,6 +42,8 @@ export const orderReducer = (
 
             const ordersAfterRemove = [...state.orders];
             ordersAfterRemove[removeOrderIndex] = updatedOrderAfterRemove;
+
+            storeOrdersInLocalStorage(ordersAfterRemove);
 
             return {
                 ...state,

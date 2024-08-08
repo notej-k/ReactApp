@@ -7,7 +7,7 @@ interface RemoveItemAction {
   type: typeof REMOVE_ITEM;
   payload: {
     orderId: string;
-    itemId: number | undefined;
+    productId: string | undefined;
   };
 }
 
@@ -22,10 +22,10 @@ export type OrderActionTypes =  RemoveItemAction | SetOrdersAction;
 
 export const removeItem = (
   orderId: string,
-  itemId: number | undefined
+  productId: string | undefined
 ): RemoveItemAction => ({
   type: REMOVE_ITEM,
-  payload: { orderId, itemId },
+  payload: { orderId, productId },
 });
 
 export const initializeOrders = (orders: Order[]): SetOrdersAction => ({

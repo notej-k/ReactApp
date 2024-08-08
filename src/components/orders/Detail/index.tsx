@@ -12,7 +12,10 @@ const OrderDetail: React.FC = () => {
   const [state, dispatch] = useReducer(orderReducer, initialState);
   const order = state.orders.find((stateOrder) => stateOrder.id === id);
 
-  const handleRemoveItem = (itemId: number | undefined) => {
+  const handleRemoveItem = (productId: string | undefined) => {
+    if (!order) return;
+    dispatch(removeItem(order.id, productId));
+  };
     if (!order) return;
     dispatch(removeItem(order.id, itemId));
   };

@@ -3,7 +3,7 @@ import { OrderItem as OrderItemType } from "../../types";
 
 interface OrderItemsTableProps {
   orderItems: OrderItemType[];
-  onRemoveItem: (itemId: number | undefined) => void;
+  onRemoveItem: (productId: string | undefined) => void;
 }
 
 const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
@@ -23,15 +23,15 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {orderItems.map((item) => (
-            <tr key={item.id}>
+          {orderItems.map((item, idx) => (
+            <tr key={`${item.id}_${item['product-id']}_${idx}`}>
               <td className="py-2 px-4 border-b">{item["product-id"]}</td>
               <td className="py-2 px-4 border-b">{item.quantity}</td>
               <td className="py-2 px-4 border-b">{item["unit-price"]}</td>
               <td className="py-2 px-4 border-b">{item.total}</td>
               <td className="py-2 px-4 border-b">
                 <button
-                  onClick={() => onRemoveItem(item.id)}
+                  onClick={() => onRemoveItem(item["product-id"])}
                   className="text-red-500 hover:text-red-700"
                 >
                   Remove
