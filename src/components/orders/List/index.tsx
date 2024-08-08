@@ -1,27 +1,17 @@
-import React, { useEffect } from "react";
-import { Order } from "../types";
-import { fetchAllOrders } from "../../../api";
+import React, { useEffect, useReducer } from "react";
 import LoadingIndicator from "../../common/LoadingIndicator";
 import OrderTable from "./OrderTable";
+import { orderReducer } from "../reducer";
+import { getOrdersFromLocalStorage } from "../../../helpers/LocalStorage";
 
 const OrderList: React.FC = () => {
-  const [orders, setOrders] = React.useState<Order[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true);
-      const data = await fetchAllOrders();
-      setOrders(data);
-      setIsLoading(false);
-    };
-
-    getData();
-  }, []);
+  const initialState = { orders: getOrdersFromLocalStorage() };
+  const [state] = useReducer(orderReducer, initialState);
+  const orders = state.orders;
 
   return (
     <div className="container mx-auto p-4 bg-white rounded-lg shadow-md">
-      {isLoading ? (
+      {!state.orders ? (
         <LoadingIndicator />
       ) : (
         <>
