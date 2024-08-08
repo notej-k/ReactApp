@@ -4,6 +4,7 @@ import { Order } from "../types";
 import { fetchOrderById } from "../../../api";
 import LoadingIndicator from "../../common/LoadingIndicator";
 import OrderInfo from "./OrderInfo";
+import OrderItemsTable from "./OrderItemsTable";
 
 const OrderDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,6 +31,7 @@ const OrderDetail: React.FC = () => {
       {order && (
         <>
           <OrderInfo order={order} />
+          <OrderItemsTable orderItems={order.items} onRemoveItem={() => {}} />
           <p className="mt-4 font-semibold">Total: ${order.total}</p>
           <button
             disabled
