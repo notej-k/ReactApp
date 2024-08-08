@@ -47,8 +47,13 @@ const ProductSelector: React.FC<ProductSelectorProps> = ({
           className="border border-gray-300 rounded p-2 w-20"
         />
         <button
+          disabled={!product?.id}
           onClick={handleAddItem}
-          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+          className={
+            product?.id
+              ? `bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded`
+              : "bg-gray-400 text-gray-700 cursor-not-allowed py-2 px-4 rounded"
+          }
         >
           Add Item
         </button>
