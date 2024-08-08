@@ -1,7 +1,18 @@
 import { Order } from "./types";
 
+export const ADD_ITEM = "ADD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export const INITIALIZE_ORDERS = "INITIALIZE_ORDERS";
+
+interface AddItemAction {
+  type: typeof ADD_ITEM;
+  payload: {
+    orderId: string;
+    productId: string;
+    quantity: number;
+    productPrice: string;
+  };
+}
 
 interface RemoveItemAction {
   type: typeof REMOVE_ITEM;
@@ -18,7 +29,17 @@ interface SetOrdersAction {
   };
 }
 
-export type OrderActionTypes =  RemoveItemAction | SetOrdersAction;
+export type OrderActionTypes = AddItemAction | RemoveItemAction | SetOrdersAction;
+
+export const addItem = (
+  orderId: string,
+  productId: string,
+  quantity: number,
+  productPrice: string
+): AddItemAction => ({
+  type: ADD_ITEM,
+  payload: { orderId, productId, quantity, productPrice },
+});
 
 export const removeItem = (
   orderId: string,
