@@ -3,8 +3,11 @@ import { useParams } from "react-router-dom";
 import OrderInfo from "./OrderInfo";
 import OrderItemsTable from "./OrderItemsTable";
 import { orderReducer } from "../reducer";
-import { removeItem } from "../actions";
+import { addItem, removeItem } from "../actions";
 import { getOrdersFromLocalStorage } from "../../../helpers/LocalStorage";
+import ProductSelector from "./ProductSelector";
+import products from "../../../data/products";
+import { Product } from "../../../types";
 
 const OrderDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,8 +19,10 @@ const OrderDetail: React.FC = () => {
     if (!order) return;
     dispatch(removeItem(order.id, productId));
   };
+
+  const handleAddItem = (product: Product, quantity: number) => {
     if (!order) return;
-    dispatch(removeItem(order.id, itemId));
+    dispatch(addItem(order.id, product.id, quantity, product.price));
   };
 
   return (
