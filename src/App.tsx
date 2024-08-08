@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./Routes";
 import './index.css';
-import Layout from "./common/Layout";
+import Layout from "./components/common/Layout";
 
 const App: React.FC = () => {
     return (
