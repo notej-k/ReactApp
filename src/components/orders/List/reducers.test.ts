@@ -104,4 +104,13 @@ describe('orderReducer', () => {
         expect(newState.orders[0].total).toBe('15.00');
         expect(storeOrdersInLocalStorage).toHaveBeenCalledWith(newState.orders);
     });
+
+    it('should return the initial state for an unknown action type', () => {
+        const action = {
+            type: 'UNKNOWN_ACTION',
+        } as any;
+
+        const newState = orderReducer(initialOrderState, action);
+        expect(newState).toEqual(initialOrderState);
+    });
 });
