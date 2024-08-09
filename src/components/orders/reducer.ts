@@ -2,7 +2,7 @@ import { Order, OrderItem } from "./types";
 import { ADD_ITEM, REMOVE_ITEM, INITIALIZE_ORDERS, OrderActionTypes } from "./actions";
 import { storeOrdersInLocalStorage } from "../../helpers/LocalStorage";
 
-interface OrderState {
+export interface OrderState {
     orders: Order[];
 }
 

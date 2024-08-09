@@ -4,7 +4,7 @@ export const ADD_ITEM = "ADD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export const INITIALIZE_ORDERS = "INITIALIZE_ORDERS";
 
-interface AddItemAction {
+export interface AddItemAction {
   type: typeof ADD_ITEM;
   payload: {
     orderId: string;
@@ -14,7 +14,7 @@ interface AddItemAction {
   };
 }
 
-interface RemoveItemAction {
+export interface RemoveItemAction {
   type: typeof REMOVE_ITEM;
   payload: {
     orderId: string;
@@ -22,7 +22,7 @@ interface RemoveItemAction {
   };
 }
 
-interface SetOrdersAction {
+export interface SetOrdersAction {
   type: typeof INITIALIZE_ORDERS;
   payload: {
     orders: Order[];
